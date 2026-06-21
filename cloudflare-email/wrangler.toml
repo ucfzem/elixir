@@ -1,0 +1,9 @@
+name = "email-pro"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+
+# Permet d'envoyer des emails depuis le Worker
+# (beta publique, à activer dans le dashboard Cloudflare)
+send_email = [
+  { type = "email", name = "EMAIL" }
+]
