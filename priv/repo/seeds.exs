@@ -84,15 +84,15 @@ products = [
     stock: 41,
     categorie: "Ordinateurs"
   },
-  {
+  %{
     nom: "GameSphere X",
-    description: "Console de salon 8K avec ray-tracing temps réel, SSD 2To, manette adaptative haptique. Rétrocompatibilité 4 générations. Sortie en 2026.",
+    description: "Console de salon 8K avec ray-tracing temps reel, SSD 2To, manette adaptative haptique. Retrocompatibilite 4 generations. Sortie en 2026.",
     prix: Decimal.new("699.00"),
     image_url: "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=800&q=80",
     stock: 0,
     categorie: "Smartphones"
   },
-  {
+  %{
     nom: "VocalLink Transceiver",
     description: "Micro-cravate pro sans-fil avec réduction de bruit IA, portée 200m, batterie 20h, compatible tout appareil. Pour streamers et professionnels.",
     prix: Decimal.new("129.00"),

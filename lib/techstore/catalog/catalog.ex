@@ -21,13 +21,13 @@ defmodule Techstore.Catalog do
   defp maybe_filter_category(query, nil), do: query
   defp maybe_filter_category(query, ""), do: query
   defp maybe_filter_category(query, cat) do
-    from p in query, where: p.categorie == ^cat
+    from(p in query, where: p.categorie == ^cat)
   end
 
   defp maybe_sort(query, nil), do: query
-  defp maybe_sort(query, "prix_asc"), do: from p in query, order_by: [asc: p.prix]
-  defp maybe_sort(query, "prix_desc"), do: from p in query, order_by: [desc: p.prix]
-  defp maybe_sort(query, "recent"), do: from p in query, order_by: [desc: p.inserted_at]
+  defp maybe_sort(query, "prix_asc"), do: from(p in query, order_by: [asc: p.prix])
+  defp maybe_sort(query, "prix_desc"), do: from(p in query, order_by: [desc: p.prix])
+  defp maybe_sort(query, "recent"), do: from(p in query, order_by: [desc: p.inserted_at])
   defp maybe_sort(query, _), do: query
 
   @doc """

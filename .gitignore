@@ -1,0 +1,9 @@
+.elixir_ls
+_build
+deps
+node_modules
+*.db
+*.db-shm
+*.db-wal
+priv/static/assets
+.esbuild

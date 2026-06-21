@@ -4,12 +4,8 @@ config :techstore,
   ecto_repos: [Techstore.Repo]
 
 config :techstore, Techstore.Repo,
-  database: "techstore_dev",
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  database: "techstore_dev.db",
+  pool_size: 5
 
 config :techstore, TechstoreWeb.Endpoint,
   url: [host: "localhost"],

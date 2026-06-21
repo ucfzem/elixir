@@ -1,4 +1,3 @@
 defmodule TechstoreWeb.Gettext do
-  @moduledoc false
-  use Gettext, otp_app: :techstore
+  use Gettext.Backend, otp_app: :techstore
 end

@@ -28,7 +28,9 @@ defmodule TechstoreWeb do
       use Phoenix.LiveView,
         layout: {TechstoreWeb.Layouts, :app}
 
-      unquote(view())
+      import Phoenix.VerifiedRoutes
+      import Phoenix.HTML
+      import TechstoreWeb.Components
     end
   end
 

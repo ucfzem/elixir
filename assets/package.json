@@ -1,0 +1,12 @@
+{
+  "name": "nexustech-assets",
+  "private": true,
+  "scripts": {
+    "deploy": "echo 'assets ready'",
+    "build": "echo 'assets ready'"
+  },
+  "dependencies": {
+    "phoenix_live_view": "^1.2.3",
+    "topbar": "^3.0.1"
+  }
+}

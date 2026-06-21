@@ -22,7 +22,7 @@
     </div>
     <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
       <span class="text-xs font-mono text-gray-600 uppercase tracking-wider">Inscrits ce mois</span>
-      <p class="mt-2 text-3xl font-bold text-white"><%= Enum.count(@customers, fn c -> c.inserted_at |> DateTime.to_date() |> Date.diff(Date.utc_today()) < 30 end) %></p>
+      <p class="mt-2 text-3xl font-bold text-white"><%= Enum.count(@customers, fn c -> Date.diff(Date.utc_today(), NaiveDateTime.to_date(c.inserted_at)) < 30 end) %></p>
     </div>
     <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
       <span class="text-xs font-mono text-gray-600 uppercase tracking-wider">Dernier inscrit</span>
