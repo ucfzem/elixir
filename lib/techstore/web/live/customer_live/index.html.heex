@@ -1,0 +1,81 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white">
+        <span class="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
+          Clients
+        </span>
+      </h1>
+      <p class="mt-2 text-gray-500">
+        <%= @customer_count %> client(s) enregistré(s)
+      </p>
+    </div>
+    <span class="text-4xl">👥</span>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
+      <span class="text-xs font-mono text-gray-600 uppercase tracking-wider">Total clients</span>
+      <p class="mt-2 text-3xl font-bold text-white"><%= @customer_count %></p>
+    </div>
+    <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
+      <span class="text-xs font-mono text-gray-600 uppercase tracking-wider">Inscrits ce mois</span>
+      <p class="mt-2 text-3xl font-bold text-white"><%= Enum.count(@customers, fn c -> c.inserted_at |> DateTime.to_date() |> Date.diff(Date.utc_today()) < 30 end) %></p>
+    </div>
+    <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
+      <span class="text-xs font-mono text-gray-600 uppercase tracking-wider">Dernier inscrit</span>
+      <p class="mt-2 text-sm font-medium text-gray-300 truncate">
+        <%= if @customers != [] do %><%= List.first(@customers).nom %><% else %>—<% end %>
+      </p>
+    </div>
+  </div>
+
+  <!-- Customers Table -->
+  <div class="bg-gray-900/30 border border-gray-800 rounded-2xl overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-800 bg-gray-900/50">
+            <th class="text-left px-6 py-4 text-gray-500 font-mono text-xs uppercase tracking-wider">Nom</th>
+            <th class="text-left px-6 py-4 text-gray-500 font-mono text-xs uppercase tracking-wider">Email</th>
+            <th class="text-left px-6 py-4 text-gray-500 font-mono text-xs uppercase tracking-wider">Adresse</th>
+            <th class="text-left px-6 py-4 text-gray-500 font-mono text-xs uppercase tracking-wider">Date d&rsquo;inscription</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-800/50">
+          <%= for customer <- @customers do %>
+            <tr class="hover:bg-gray-800/30 transition-colors">
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500/20 to-violet-500/20 flex items-center justify-center text-xs font-bold text-cyan-400 border border-cyan-500/20">
+                    <%= String.first(customer.nom) %>
+                  </div>
+                  <span class="font-medium text-gray-200"><%= customer.nom %></span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-gray-400 font-mono text-xs">
+                <%= customer.email %>
+              </td>
+              <td class="px-6 py-4 text-gray-500 max-w-[200px] truncate">
+                <%= customer.adresse || "—" %>
+              </td>
+              <td class="px-6 py-4">
+                <span class="font-mono text-xs text-gray-400">
+                  <%= customer.inserted_at |> Calendar.strftime("%d/%m/%Y à %H:%M") %>
+                </span>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= if @customers == [] do %>
+      <div class="text-center py-16">
+        <span class="text-5xl">👤</span>
+        <p class="mt-4 text-gray-600">Aucun client enregistré pour le moment.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Section -->
+  <section class="text-center py-12 sm:py-20">
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight">
+      <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent">
+        High-Tech Store
+      </span>
+    </h1>
+    <p class="mt-4 text-gray-500 text-lg sm:text-xl max-w-2xl mx-auto font-light">
+      Découvrez les dernières innovations en matière de technologie.
+      Smartphones, ordinateurs, audio et plus encore.
+    </p>
+  </section>
+
+  <!-- Filters -->
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-800">
+    <div class="flex flex-wrap gap-2">
+      <button
+        phx-click="filter-category"
+        phx-value-categorie=""
+        class={"px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 " <> if @selected_category == "", do: "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30", else: "bg-gray-900 text-gray-400 border border-gray-800 hover:border-gray-700 hover:text-gray-300"}
+      >
+        Tous
+      </button>
+      <%= for cat <- @categories do %>
+        <button
+          phx-click="filter-category"
+          phx-value-categorie={cat}
+          class={"px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 " <> if @selected_category == cat, do: "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30", else: "bg-gray-900 text-gray-400 border border-gray-800 hover:border-gray-700 hover:text-gray-300"}
+        >
+          <%= cat %>
+        </button>
+      <% end %>
+    </div>
+
+    <select
+      phx-change="sort"
+      class="bg-gray-900 border border-gray-800 text-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
+    >
+      <option value="recent" {if @sort == "recent", do: "selected"}>Plus récents</option>
+      <option value="prix_asc" {if @sort == "prix_asc", do: "selected"}>Prix croissant</option>
+      <option value="prix_desc" {if @sort == "prix_desc", do: "selected"}>Prix décroissant</option>
+    </select>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <%= for product <- @products do %>
+      <a href={~p"/products/#{product.id}"} class="group block">
+        <div class="bg-gray-900/50 border border-gray-800 rounded-2xl overflow-hidden transition-all duration-300 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/5 hover:-translate-y-1">
+          <!-- Image -->
+          <div class="aspect-[4/3] bg-gray-800 overflow-hidden">
+            <img
+              src={product.image_url}
+              alt={product.nom}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+          <!-- Info -->
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-cyan-500/70 bg-cyan-500/10 px-2 py-1 rounded-full">
+                <%= product.categorie %>
+              </span>
+              <span class="text-xs text-gray-600 font-mono">
+                +<%= product.inserted_at |> Calendar.strftime("%d/%m/%Y") %>
+              </span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-100 group-hover:text-cyan-400 transition-colors leading-tight">
+              <%= product.nom %>
+            </h3>
+            <p class="mt-1 text-sm text-gray-500 line-clamp-2 leading-relaxed">
+              <%= product.description %>
+            </p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-2xl font-bold text-white">
+                <%= product.prix %> €
+              </span>
+              <span class={"text-xs font-mono px-2 py-1 rounded " <> if product.stock > 0, do: "text-green-400/70 bg-green-400/10", else: "text-red-400/70 bg-red-400/10"}>
+                <%= if product.stock > 0, do: "En stock", else: "Rupture" %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    <% end %>
+  </div>
+
+  <!-- Empty State -->
+  <%= if @products == [] do %>
+    <div class="text-center py-20">
+      <span class="text-6xl">📦</span>
+      <p class="mt-4 text-gray-600 text-lg">Aucun produit trouvé dans cette catégorie.</p>
+    </div>
+  <% end %>
+</div>

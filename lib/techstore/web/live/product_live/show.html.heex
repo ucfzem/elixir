@@ -1,0 +1,103 @@
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Back link -->
+  <a href="/" class="inline-flex items-center gap-2 text-gray-500 hover:text-cyan-400 transition-colors text-sm mb-8 group">
+    <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Retour aux produits
+  </a>
+
+  <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
+    <!-- Image -->
+    <div class="aspect-square bg-gray-900 rounded-3xl overflow-hidden border border-gray-800">
+      <img
+        src={@product.image_url}
+        alt={@product.nom}
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <!-- Details -->
+    <div class="flex flex-col justify-center">
+      <span class="text-xs font-mono text-cyan-500/70 bg-cyan-500/10 px-3 py-1.5 rounded-full inline-block w-fit mb-4">
+        <%= @product.categorie %>
+      </span>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+        <%= @product.nom %>
+      </h1>
+
+      <div class="flex items-center gap-4 mt-4">
+        <span class="text-sm text-gray-600 font-mono">
+          Ajouté le <%= @product.inserted_at |> Calendar.strftime("%d %B %Y") %>
+        </span>
+      </div>
+
+      <p class="mt-6 text-gray-400 leading-relaxed text-lg">
+        <%= @product.description %>
+      </p>
+
+      <!-- Price & Stock -->
+      <div class="mt-8 flex items-center gap-6">
+        <span class="text-4xl font-bold text-white">
+          <%= @product.prix %> €
+        </span>
+        <span class={"text-sm font-mono px-3 py-1.5 rounded-full " <> if @product.stock > 0, do: "text-green-400 bg-green-400/10", else: "text-red-400 bg-red-400/10"}>
+          <%= if @product.stock > 0 do %>
+            ● En stock (<%= @product.stock %> unités)
+          <% else %>
+            ● Rupture de stock
+          <% end %>
+        </span>
+      </div>
+
+      <!-- Add to Cart -->
+      <button
+        phx-click="add-to-cart"
+        class={"mt-8 w-full py-4 px-6 rounded-2xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-3 " <>
+          if @added_to_cart do
+            "bg-green-600 text-white cursor-default"
+          else
+            "bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:from-cyan-500 hover:to-blue-500 shadow-lg shadow-cyan-500/20 active:scale-[0.98]"
+          end
+        }
+        {if @added_to_cart || @product.stop == 0, do: [disabled: true], else: []}
+      >
+        <%= if @added_to_cart do %>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          Ajouté au panier ✓
+        <% else %>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+          </svg>
+          Ajouter au panier
+        <% end %>
+      </button>
+
+      <!-- Tech Specs -->
+      <div class="mt-10 pt-8 border-t border-gray-800">
+        <h3 class="text-sm font-mono text-gray-500 uppercase tracking-wider mb-4">Caractéristiques</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800">
+            <span class="text-xs text-gray-600 font-mono">Catégorie</span>
+            <p class="mt-1 text-sm text-gray-300 font-semibold"><%= @product.categorie %></p>
+          </div>
+          <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800">
+            <span class="text-xs text-gray-600 font-mono">Stock</span>
+            <p class="mt-1 text-sm text-gray-300 font-semibold"><%= @product.stock %> unités</p>
+          </div>
+          <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800">
+            <span class="text-xs text-gray-600 font-mono">Référence</span>
+            <p class="mt-1 text-sm text-gray-300 font-mono">#NX-<%= @product.id %></p>
+          </div>
+          <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800">
+            <span class="text-xs text-gray-600 font-mono">Ajouté le</span>
+            <p class="mt-1 text-sm text-gray-300 font-mono"><%= @product.inserted_at |> Calendar.strftime("%d/%m/%Y") %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
