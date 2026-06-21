@@ -399,12 +399,12 @@
     ];
 
     const CUSTOMERS = [
-      { id: 1, nom: "Sophie Martin", email: "sophie.martin@example.com", adresse: "12 rue de la Tech, 75011 Paris", date: "2026-06-14" },
-      { id: 2, nom: "Yassine El Amrani", email: "yassine.elamrani@example.com", adresse: "8 avenue Mohammed V, Tanger", date: "2026-05-30" },
-      { id: 3, nom: "Lucas Dubois", email: "lucas.dubois@example.com", adresse: "45 Keizersgracht, Amsterdam", date: "2026-06-18" },
-      { id: 4, nom: "Amina Benali", email: "amina.benali@example.com", adresse: "3 rue Ibn Battouta, Rabat", date: "2026-04-22" },
-      { id: 5, nom: "Emma Janssen", email: "emma.janssen@example.com", adresse: "21 Damrak, Amsterdam", date: "2026-06-02" },
-      { id: 6, nom: "Karim Haddad", email: "karim.haddad@example.com", adresse: "17 boulevard Pasteur, Tanger", date: "2026-03-11" }
+      { id: 1, nom: "Sophie Martin", email: "sophie.martin@gmail.com", adresse: "12 rue de la Tech, 75011 Paris", date: "2026-06-14", commandes: 2 },
+      { id: 2, nom: "Yassine El Amrani", email: "yassine.elamrani@gmail.com", adresse: "8 avenue Mohammed V, Tanger", date: "2026-05-30", commandes: 3 },
+      { id: 3, nom: "Lucas Dubois", email: "lucas.dubois@gmail.com", adresse: "45 Keizersgracht, Amsterdam", date: "2026-06-18", commandes: 4 },
+      { id: 4, nom: "Amina Benali", email: "amina.benali@gmail.com", adresse: "3 rue Ibn Battouta, Rabat", date: "2026-04-22", commandes: 5 },
+      { id: 5, nom: "Emma Janssen", email: "emma.janssen@gmail.com", adresse: "21 Damrak, Amsterdam", date: "2026-06-02", commandes: 1 },
+      { id: 6, nom: "Karim Haddad", email: "karim.haddad@gmail.com", adresse: "17 boulevard Pasteur, Tanger", date: "2026-03-11", commandes: 0 }
     ];
 
     const CATEGORIES = ["tous", "smartphones", "ordinateurs", "casques", "tablettes", "accessoires", "consoles"];
@@ -611,7 +611,7 @@
           <td class="name">${c.nom}</td>
           <td>${c.email}</td>
           <td>${formatDate(c.date)}</td>
-          <td class="mono" style="font-size:.7rem;">${(c.id % 5) + 1} commande(s)</td>
+          <td class="mono" style="font-size:.7rem;">${c.commandes} commande(s)</td>
         </tr>`).join('');
       return `
         <div class="clients-wrap">
